@@ -11,18 +11,17 @@ public class ToggleButton extends Actor
 {
     // Variable definitions
     public static int currentPeriod = 2; // initialize the period to 2
-    private GreenfootImage per2 = new GreenfootImage("Background2.jpg");
-    private GreenfootImage per3 = new GreenfootImage("Background3.jpg");
+    private GreenfootImage per2 = new GreenfootImage("Background2.jpg"); // variable for the second period background
+    private GreenfootImage per3 = new GreenfootImage("Background3.jpg"); // variable for the third period background
     public static boolean changed = false; // variable detecting when the toggle button is clicked and the period is changed 
     
     /**
      * Constructor for ToggleButton
      */
     public ToggleButton() {
-        // settings for image of toggle button
-        GreenfootImage toggleImage = new GreenfootImage("toggleButton.png");
+        GreenfootImage toggleImage = new GreenfootImage("toggleButton.png"); // creates a variable for the image of the toggle
         toggleImage.scale(125,75); // resizes image
-        setImage(toggleImage);        
+        setImage(toggleImage); // sets the image of the  object to the variable created above
     }
     
     /**
@@ -31,12 +30,12 @@ public class ToggleButton extends Actor
      */
     public void act() 
     {   
-        if(Greenfoot.mouseClicked(this)) {
-            int i = this.getCurrentPeriod();
-            int j = i==2? 3 : 2;
-            this.setCurrentPeriod(j);
-            toggle(currentPeriod);
-            changed = true;
+        if(Greenfoot.mouseClicked(this)) { // conditional for when the toggle is clicked
+            int i = this.getCurrentPeriod(); // variable for the current period (the most recent)
+            int j = i==2? 3 : 2; // if the period is 2, it changes it to 3; if the period is not 2 (in which case it must be 3), the variable is changed to 2
+            this.setCurrentPeriod(j); // sets the current period to the value that j was assigned in the previous line
+            toggle(currentPeriod); // sets the background based on the value that j was assigned in the previous line (the period)
+            changed = true; // indicates that a change has occurred so the students can be changed
         }
         Greenfoot.delay(10);
     }

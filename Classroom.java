@@ -14,8 +14,8 @@ import java.lang.reflect.Constructor;
  */
 public class Classroom extends World
 {
-    private ArrayList<Student> listo = new ArrayList<Student>();
-    public ToggleButton toggle = new ToggleButton();
+    private ArrayList<Student> listo = new ArrayList<Student>(); // creates an array of objects in the Student class
+    public ToggleButton toggle = new ToggleButton(); // public variable for the instance of the Toggle class, called toggle (so it can also be accessed in its own class)
     
     /**
      * Constructor for objects of class Classroom.
@@ -25,19 +25,19 @@ public class Classroom extends World
     {
         // Create a new world with 10x6 cells with a cell size of 130x130 pixels.
         super(10, 6, 130);
-        setBackground("Background2.jpg");
-        addObject(toggle, 250, 250);
-        prepare();
-        setPeriod();
+        setBackground("Background2.jpg"); // sets the background to match the default period (2)
+        addObject(toggle, 250, 250); // adds the toggle
+        prepare(); // prepares the array of students by calling each constructor and adding the object to the array
+        setPeriod(); // uses the array to initialize the world with the correct set of students
     }
     
     /**
      * calls the setPeriod method whenever the toggle is clicked
      */
     public void act() {
-        if(ToggleButton.changed=true) {
-            setPeriod();
-            ToggleButton.changed=false;
+        if(ToggleButton.changed=true) { // conditional to check if the toggle has been clicked (through a boolean that is changed to true when the toggle is clicked)
+            setPeriod(); // resets the students in the world to match the new period by calling the setPeriod method
+            ToggleButton.changed=false; // resets the boolean to false so that it is ready for the next time that the toggle is clicked
         }
     }
     
@@ -46,6 +46,10 @@ public class Classroom extends World
      */
     public void prepare()
     {
+        // calls the constructor for each subclass of student
+        // adds the new object to the array list of students
+        // this would have to be done for every new student whose code is added to the world
+        
         ArvindKumar arvindkumar = new ArvindKumar("Arvind", "Kumar", 1, 3, 3);
         listo.add(arvindkumar);
         
@@ -81,14 +85,15 @@ public class Classroom extends World
      * deletes all existing objects in the Student class in the world, iterates throught the array, and only adds the student who belong to the period that is currently being shown in the world (currentPeriod)
      */
     public void setPeriod() {
-        removeObjects(getObjects(Student.class));
-        int i = 0;
-        while(i<listo.size()) {
-            if(listo.get(i).period==ToggleButton.currentPeriod) {
-                addObject(listo.get(i), 1, 1);
-                listo.get(i).sitDown();
+        removeObjects(getObjects(Student.class)); // removes all objects of the student class from the world (like a "reset")
+        int i = 0; // variable for a counter (a decomposed for loop so it is easier to understand)
+        while(i<listo.size()) { // iterates as many times as there are students in the array list
+            if(listo.get(i).period==ToggleButton.currentPeriod) { // checks whether each student's period (an instance variable defined in the Student class) matches the current period (a variable of the ToggleButton class)
+                addObject(listo.get(i), 1, 1); // if the period matches, it adds the students to the world
+                                               // note: the location is set as (1,1) but it does not matter because this is redefined with the correct coordinates in the sitDown() method anyway
+                listo.get(i).sitDown(); // sets each student in the correct location based on the coordinates given when the constructor was called and sets their image to their sitting image
             }
-            i++;
+            i++; // advances the iteration number by one (like in a for loop)
         }
     }
     
